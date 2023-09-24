@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    department: speechandlanguage
+    owner: ruanzixuan
+  name: speechandlanguage-web-platform-deployment
+  namespace: yunmi-infra
+spec:
+  selector:
+    matchLabels:
+      app: speechandlanguage-web-platform
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: speechandlanguage-web-platform
+    spec:
+      containers:
+      - name: speechandlanguage-web-platform
+        ##由于云服务中命名空间不足，暂先使用yunmi-infra
+        image: viomi-docker.viomi.net/yunmi-infra/viomi/speechandlanguage-web-platform:prod-1
+        ports:
+        - containerPort: 8080
+        command: []
+        args: []
+        env:
+        - name: "CNPL"
+          value: "yunmi"
+        resources:
+          requests:
+            memory: "1000Mi"
+            cpu: "0.5"
+          limits:
+            memory: "2000Mi"
+            cpu: "2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: speechandlanguage-web-platform-service
+  namespace: yunmi-infra
+  labels:
+    name: speechandlanguage-web-platform-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: speechandlanguage-web-platform
+ 
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  namespace: yunmi-infra
+  name:  speechandlanguage-web-platform-ingress
+spec:
+  rules:
+    - host: app-home.viomi.com.cn
+      http:
+        paths:
+          - path: /ai/speechandlanguage/web-platform
+            backend:
+              serviceName: speechandlanguage-web-platform-service
+              servicePort: 8080
