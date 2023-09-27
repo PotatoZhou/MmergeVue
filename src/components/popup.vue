@@ -1,6 +1,6 @@
 <template>
   <div class="sections">
-    <el-tabs v-model="acticeName" @tab-click="handleTabClick">
+    <el-tabs v-model="activeName" @tab-click="handleTabClick">
       <el-tab-pane label="Chatbot" name="Chatbot">
         <Chatbot></Chatbot>
       </el-tab-pane>
@@ -23,6 +23,9 @@ export default {
     return {
       activeName: "CourseInput",
     };
+  },
+  created() {
+    console.log(this.activeName);
   },
   methods: {
     handleTabClick(tab, event) {
