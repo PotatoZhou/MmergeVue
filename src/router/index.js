@@ -1,13 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import mainpage from "../components/layout.vue";
+import popup from "../components/popup.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "",
-    name: "mainpage",
-    component: mainpage,
+    name: "popup",
+    component: popup,
   },
 ];
 
