@@ -1,6 +1,9 @@
 <template>
   <div class="sections">
     <el-tabs v-model="activeName" @tab-click="handleTabClick">
+      <el-tab-pane label="Configuration" name="Configuration">
+        <Configuration></Configuration>
+      </el-tab-pane>
       <el-tab-pane label="Chatbot" name="Chatbot">
         <Chatbot></Chatbot>
       </el-tab-pane>
@@ -14,6 +17,7 @@
 <script>
 import CourseInput from "../components/CourseInput/index.vue";
 import Chatbot from "../components/Chatbot/index.vue";
+import Configuration from "../components/Configuration/index.vue";
 export default {
   components: {
     CourseInput,
