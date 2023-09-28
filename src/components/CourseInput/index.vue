@@ -19,12 +19,18 @@
       </el-option>
     </el-select>
   </div>
+  <div class="progressBar">
+    <el-progress :percentage="precentage" :color="color" type="circle">
+    </el-progress>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      precentage: 0,
+      custonColor: "#409eff",
       options: [
         {
           value: "CS246",
@@ -36,6 +42,8 @@ export default {
         },
       ],
       value: [],
+      degree: "BCS",
+      major: "ComputationalMath",
       courseRequirements: [
         {
           BMath: ["CS245", "CS246"],
@@ -53,6 +61,9 @@ export default {
         message: "Course updated",
         type: "success",
       });
+    },
+    handelMajorChange(major) {
+      console.log(major);
     },
   },
 };

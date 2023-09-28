@@ -22,6 +22,7 @@ export default {
   components: {
     CourseInput,
     Chatbot,
+    Configuration,
   },
   data() {
     return {
