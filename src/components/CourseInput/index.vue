@@ -1,27 +1,40 @@
 <template>
   <div class="header">
-    <el-select
-      style="width: 50%; float: left"
-      @change="handleCourseChange"
-      v-model="value"
-      multiple
-      filterable
-      allow-create
-      default-first-option
-      placeholder="Choose courses that you have already taken"
-    >
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
+    <div class="CourseSelect">
+      <el-select
+        style="width: 50%; float: left"
+        @change="handleCourseChange"
+        v-model="value"
+        multiple
+        filterable
+        allow-create
+        default-first-option
+        placeholder="Choose courses that you have already taken"
       >
-      </el-option>
-    </el-select>
-  </div>
-  <div class="progressBar">
-    <el-progress :percentage="precentage" :color="color" type="circle">
-    </el-progress>
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+    </div>
+    <div class="MajorSelect" style="margin-left: 10px">
+      <el-select
+        style="width: 50%; float: right"
+        @change="handelMajorChange"
+        v-model="major"
+        filterable
+        allow-create
+        default-first-option
+        placeholder="Choose your major(s)"
+      >
+      </el-select>
+    </div>
+    <div class="progress-bar">
+      <el-progress :percentage="100" style="margin-top: 100px"></el-progress>
+    </div>
   </div>
 </template>
 
@@ -43,7 +56,7 @@ export default {
       ],
       value: [],
       degree: "BCS",
-      major: "ComputationalMath",
+      major: "",
       courseRequirements: [
         {
           BMath: ["CS245", "CS246"],
@@ -64,6 +77,26 @@ export default {
     },
     handelMajorChange(major) {
       console.log(major);
+      this.$notify({
+        title: "Success",
+        message: "Major updated",
+        type: "success",
+      });
+    },
+    UpdateProgressStatus(value, major) {
+      if (major != "") {
+        let NumberofCourseMetrequirements = 0;
+        // ToDo: complete the course requirements  graph search algorithm
+        for (let course in value) {
+          if (course in this.courseRequirements[major]) {
+            NumberofCourseMetrequirements += 1;
+          } else {
+            console.log("Course not in major requirements");
+          }
+        }
+        this.precentage =
+          NumberofCourseMetrequirements / this.courseRequirements[major].length;
+      }
     },
   },
 };
