@@ -1,5 +1,8 @@
 <template>
   <div class="header">
+    <div class="progress-bar">
+      <el-progress :percentage="percentage"></el-progress>
+    </div>
     <div class="CourseSelect">
       <el-select
         style="width: 50%; float: left"
@@ -30,10 +33,14 @@
         default-first-option
         placeholder="Choose your major(s)"
       >
+        <el-option
+          v-for="item in Majoroptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
       </el-select>
-    </div>
-    <div class="progress-bar">
-      <el-progress :percentage="100" style="margin-top: 100px"></el-progress>
     </div>
   </div>
 </template>
@@ -42,7 +49,7 @@
 export default {
   data() {
     return {
-      precentage: 0,
+      percentage: 0,
       custonColor: "#409eff",
       options: [
         {
@@ -55,6 +62,20 @@ export default {
         },
       ],
       value: [],
+      Majoroptions: [
+        {
+          value: "BMath",
+          label: "BMath",
+        },
+        {
+          value: "BCS",
+          label: "BCS",
+        },
+        {
+          value: "ComputationalMath",
+          label: "ComputationalMath",
+        },
+      ],
       degree: "BCS",
       major: "",
       courseRequirements: [
@@ -74,6 +95,7 @@ export default {
         message: "Course updated",
         type: "success",
       });
+      this.UpdateProgressStatus(value, this.major);
     },
     handelMajorChange(major) {
       console.log(major);
@@ -82,20 +104,24 @@ export default {
         message: "Major updated",
         type: "success",
       });
+      this.UpdateProgressStatus(this.value, major);
     },
     UpdateProgressStatus(value, major) {
+      console.log(this.courseRequirements[0][major].length, major);
       if (major != "") {
         let NumberofCourseMetrequirements = 0;
         // ToDo: complete the course requirements  graph search algorithm
         for (let course in value) {
-          if (course in this.courseRequirements[major]) {
+          if (course in this.courseRequirements[0][major]) {
             NumberofCourseMetrequirements += 1;
           } else {
             console.log("Course not in major requirements");
           }
         }
         this.precentage =
-          NumberofCourseMetrequirements / this.courseRequirements[major].length;
+          (NumberofCourseMetrequirements /
+            this.courseRequirements[0][major].length) *
+          100;
       }
     },
   },
