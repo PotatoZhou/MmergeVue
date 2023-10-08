@@ -80,9 +80,13 @@ export default {
       major: "",
       courseRequirements: [
         {
-          BMath: ["CS245", "CS246"],
-          BCS: ["CS245", "CS246"],
-          ComputationalMath: ["CS245"],
+          BMath: [
+            [1, ["CS245", "CS246"]][(3, "math239", "math235", "math237")],
+          ],
+          BCS: [[1, ["CS245", "CS246"]][(3, "math239", "math235", "math237")]],
+          ComputationalMath: [
+            [1, ["CS245", "CS246"]][(3, "math239", "math235", "math237")],
+          ],
         },
       ],
     };
@@ -106,6 +110,7 @@ export default {
       });
       this.UpdateProgressStatus(this.value, major);
     },
+
     UpdateProgressStatus(value, major) {
       console.log(this.courseRequirements[0][major].length, major);
       if (major != "") {
