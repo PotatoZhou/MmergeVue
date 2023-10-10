@@ -21,7 +21,7 @@ UrlDic = {
     "MTeaching": "https://ugradcalendar.uwaterloo.ca/page/MATH-Mathematics-Teaching-co-op"
 }
 
-WatHtml = requests.get(UrlDic["CS"]).text
+WatHtml = requests.get(UrlDic["CO"]).text
 soup = BeautifulSoup(WatHtml, 'html.parser')
 soup.prettify()
 soup = soup.find("span", id="ctl00_contentMain_lblContent")
@@ -32,12 +32,24 @@ numberDic = {
     'four': 4,
     'five': 5
 }
-Mrequirement = []
-for li in soup.find_all('li'):
-    sectionR = []
-    for a in li.find_all("a"):
-        sectionR.append(a.text)
-    numRequireToChoose = li.text
-    Mrequirement.append([numRequireToChoose, sectionR])
-pp.pprint(Mrequirement)
+with open("/Users/zgj/Documents/GitHub/Mmerge/spyider/course.html", "w", encoding="utf-8") as file:
+    file.write(str(soup))
+def extract(soup):
+    outer_list_items = soup.find_all('li')
+    result = []
+
+    for item in outer_list_items:
+        if 'One of' in item.text:
+            count = 1
+        elif 'Three of' in item.text:
+            count = 3
+        else:
+            continue
+
+        courses = [a.text.strip() for a in item.find_next('ul').find_all('a')]
+        result.append([count, courses])
+
+    return result
+
+pp.pprint(extract(soup))
 
