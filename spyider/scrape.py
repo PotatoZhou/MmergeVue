@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pprint
+import json
 
 pp = pprint.PrettyPrinter()
 upperUrl = "https://ugradcalendar.uwaterloo.ca/page/MATH-List-of-Academic-Programs-or-Plans"
@@ -21,10 +22,11 @@ UrlDic = {
     "MTeaching": "https://ugradcalendar.uwaterloo.ca/page/MATH-Mathematics-Teaching-co-op"
 }
 
+
 WatHtml = requests.get(UrlDic["CO"]).text
-soup = BeautifulSoup(WatHtml, 'html.parser')
-soup.prettify()
-soup = soup.find("span", id="ctl00_contentMain_lblContent")
+doc = BeautifulSoup(WatHtml, 'html.parser')
+doc.prettify()
+doc = doc.find("span", id="ctl00_contentMain_lblContent")
 numberDic = {
     'one': 1,
     'two': 2,
@@ -32,24 +34,24 @@ numberDic = {
     'four': 4,
     'five': 5
 }
-with open("/Users/zgj/Documents/GitHub/Mmerge/spyider/course.html", "w", encoding="utf-8") as file:
-    file.write(str(soup))
-def extract(soup):
-    outer_list_items = soup.find_all('li')
-    result = []
 
-    for item in outer_list_items:
-        if 'One of' in item.text:
-            count = 1
-        elif 'Three of' in item.text:
-            count = 3
-        else:
-            continue
+doc = doc.find("li").find_next_siblings('li')
+courseRequirement = []
+for section in doc:
+    count = 0
+    number = section.text
+    for key in numberDic:
+        if key in number.lower():
+            count = numberDic[key]
+    subsec = section.find("ul")
+    courseLst = []
+    try:
+        courses = subsec.find_all('a')
+        for course in courses:
+            courseLst.append(course.text)
+    except:
+        courseLst = ['not found']
+    courseRequirement.append([count, courseLst])
 
-        courses = [a.text.strip() for a in item.find_next('ul').find_all('a')]
-        result.append([count, courses])
-
-    return result
-
-pp.pprint(extract(soup))
-
+with open("/Users/zgj/Documents/GitHub/Mmerge/spyider/CourseRequirement.json", "w") as file:
+    json.dump(courseRequirement, file)

@@ -12,7 +12,7 @@
         filterable
         allow-create
         default-first-option
-        placeholder="Choose courses that you have already taken"
+        placeholder="Choose courses that you have already taken, example: pmath340, cs246"
       >
         <el-option
           v-for="item in options"
