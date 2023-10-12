@@ -46,9 +46,11 @@
 </template>
 
 <script>
+import { EventBus } from "../../Eventbus";
 export default {
   data() {
     return {
+      CourseData: null,
       percentage: 0,
       custonColor: "#409eff",
       options: [
@@ -90,6 +92,13 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    EventBus.$on("DataSend", (data) => {
+      this.CourseData = data;
+    });
+    console.log(this.CourseData);
+    console.log("created!");
   },
   methods: {
     handleCourseChange(value) {
