@@ -31,7 +31,7 @@
         filterable
         allow-create
         default-first-option
-        placeholder="Choose your major(s)"
+        placeholder="Choose your major(s) / your self-defined major"
       >
         <el-option
           v-for="item in Majoroptions"
@@ -66,28 +66,39 @@ export default {
       value: [],
       Majoroptions: [
         {
-          value: "BMath",
-          label: "BMath",
+          value: "ComputerScience",
+          label: "ComputerScience",
         },
         {
-          value: "BCS",
-          label: "BCS",
+          value: "CombinatoricsAndOptimization",
+          label: "CombinatoricsAndOptimization",
         },
         {
-          value: "ComputationalMath",
-          label: "ComputationalMath",
+          value: "ComputationalMathetics",
+          label: "ComputationalMathetics",
         },
       ],
-      degree: "BCS",
       major: "",
       courseRequirements: [
         {
-          BMath: [
-            [1, ["CS245", "CS246"]][(3, "math239", "math235", "math237")],
-          ],
-          BCS: [[1, ["CS245", "CS246"]][(3, "math239", "math235", "math237")]],
-          ComputationalMath: [
-            [1, ["CS245", "CS246"]][(3, "math239", "math235", "math237")],
+          ComputationalMathetics: [
+            {
+              Number_required: 1,
+              requirement_type: "i of",
+              Course: "Math 237, Math 247",
+              Edit: false,
+            },
+            {
+              Number_required: 1,
+              requirement_type: "i of",
+              Course: "Math 239, Math 249",
+              Edit: false,
+            },
+            {
+              Number_required: 3,
+              requirement_type: "i of",
+              Course: "CS371, CS230, CS234",
+            },
           ],
         },
       ],
@@ -96,6 +107,8 @@ export default {
   created() {
     EventBus.$on("DataSend", (data) => {
       this.CourseData = data;
+      console.log(this.CourseData);
+      console.log("received!");
     });
     console.log(this.CourseData);
     console.log("created!");

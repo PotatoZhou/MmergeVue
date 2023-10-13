@@ -52,6 +52,11 @@
                 value="i of additional"
                 style="width: 100px; float: left"
               ></el-option>
+              <el-option
+                label="i of additional (with different subject code)"
+                value="i of additional (with different subject code)"
+                style="width: 100px; float: left"
+              ></el-option>
             </el-select>
             <p v-else>{{ scope.row.requirement_type }}</p>
           </template>
