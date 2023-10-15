@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <div class="progress-bar">
+      Progress On Your Major: {{ this.major }}
       <el-progress :percentage="percentage"></el-progress>
     </div>
     <div class="CourseSelect">
@@ -41,6 +42,11 @@
         >
         </el-option>
       </el-select>
+      <div class="progress-bar">
+        Major with max Progress(Other than Current Major):
+        {{ this.MaxSecondMajor }}
+        <el-progress :percentage="SecondMajorPrecentage"></el-progress>
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +59,7 @@ export default {
       possibleCourseRoute: [],
       CourseData: null,
       percentage: 0,
+      SecondMajorPrecentage: 0,
       custonColor: "#409eff",
       options: [
         {
@@ -80,6 +87,7 @@ export default {
         },
       ],
       major: "",
+      MaxSecondMajor: "",
       courseRequirements: {
         ComputationalMathematics: [
           {
@@ -306,6 +314,7 @@ export default {
           Maxmajor[2] = maxDic[2];
         }
         this.SecondMajorPrecentage = (Maxmajor[0] / Maxmajor[1].length) * 100;
+        this.MaxSecondMajor = Maxmajor[0];
       }
       return Maxmajor;
     },
