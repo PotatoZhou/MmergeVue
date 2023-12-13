@@ -1,8 +1,7 @@
 
-# uwMmerge: degree planner 0.1 
-# (developing)
+# Mmerge: degree planner web app 1.0
 
-uwMmerge is a tool designed to assist students at the University of Waterloo, faculty of math, planning their course selection for a degree with multiple majors. This project aims to simplify the often complex task of coordinating courses across different disciplines, enabling students to make well-informed decisions about their academic journey.
+Mmerge is a tool designed to assist students at the University of Waterloo, faculty of math, planning their course selection for a degree with multiple majors. This project aims to simplify the often complex task of coordinating courses across different disciplines, enabling students to make well-informed decisions about their academic journey.
 
 
 
