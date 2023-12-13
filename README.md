@@ -17,7 +17,6 @@ For Feedbacks, discussions and support, email g46zhou@outlook.com
 
 ## Features
 
-- Light/dark mode toggle
 - Course Dataset Configuration
 
 
