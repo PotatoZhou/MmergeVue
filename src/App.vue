@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <title>Mmerge</title>
+    <title>云米ß</title>
   </div>
 </template>
 
