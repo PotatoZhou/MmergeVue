@@ -10,7 +10,7 @@ import random
 
 mysqlUsername = "root"
 mysqlPassword = "12345678"
-databaseName = "mahjongdb"
+databaseName = "Mmerge"
 engine = create_engine(f"mysql+pymysql://{mysqlUsername}:{mysqlPassword}@localhost/{databaseName}")
 metadata = MetaData(bind=engine)
 Base = declarative_base(metadata=metadata)
@@ -37,7 +37,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-app = Sanic("Mahjong")
+app = Sanic("Mmerge")
 CORS(app)
 
 
