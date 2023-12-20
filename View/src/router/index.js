@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import popup from "../components/popup.vue";
+import popup from "../views/popup.vue";
 Vue.use(VueRouter);
 
 const routes = [

@@ -12,36 +12,36 @@
 </template>
 
 <script>
-import VueCytoscape from "vue-cytoscape";
+import cytoscape from "cytoscape";
 export default {
   components: {
-    VueCytoscape,
+    cytoscape,
   },
 
   data() {
     return {
-      config: (CytoscapeOptions = {
-        elements: [
-          { data: { id: "a" } },
-          { data: { id: "b" } },
-          {
-            data: {
-              id: "ab",
-              source: "a",
-              target: "b",
-            },
-          },
-        ],
-      }),
+      config: {},
+      NodeList: [],
+      edgeList: [],
     };
   },
 
   created() {
     console.log("created");
-    importCourse();
+    this.importCourse();
   },
 
   methods: {
+    initializeCy() {
+      console.log("initializeCy");
+      const cy = cytoscape({
+        container: this.$refs.cy,
+        elements: this.elements,
+        style: this.style,
+        layout: this.layout,
+      });
+    },
+
     importCourse() {
       console.log("importCourse");
     },

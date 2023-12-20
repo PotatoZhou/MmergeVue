@@ -5,7 +5,7 @@
         <Configuration></Configuration>
       </el-tab-pane>
       <el-tab-pane label="Chatbot" name="Chatbot">
-        <Chatbot></Chatbot>
+        <CourseInfo></CourseInfo>
       </el-tab-pane>
       <el-tab-pane label="CourseInput" name="CourseInput">
         <CourseInput></CourseInput>
@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import CourseInput from "../components/CourseInput/index.vue";
-import Chatbot from "../components/Chatbot/index.vue";
 import Configuration from "../components/Configuration/index.vue";
+import CourseInfo from "../components/CourseInfo/index.vue";
+import CourseInput from "../components/CourseInput/index.vue";
 export default {
   components: {
     CourseInput,
-    Chatbot,
+    CourseInfo,
     Configuration,
   },
   data() {
