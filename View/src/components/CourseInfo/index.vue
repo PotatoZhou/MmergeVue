@@ -23,12 +23,16 @@ export default {
       config: {},
       NodeList: [],
       edgeList: [],
+      url: "https://ucalendar.uwaterloo.ca/2324/COURSE/course-Subject.html",
+      subjects: ["CS", "CO", "PMATH", "AMATH", "STAT", "MATH", "ACTSC"],
+      subjectGraph: [],
     };
   },
 
   created() {
     console.log("created");
     this.importCourse();
+    
   },
 
   methods: {
@@ -44,6 +48,17 @@ export default {
 
     importCourse() {
       console.log("importCourse");
+      for (let i = 0; i < this.subjects.length; i++) {
+        let Subjecturl = this.url.replace("Subject", this.subjects[i]);
+        fetch(Subjecturl).then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+            return response.json();
+          }).then(data => {
+
+          })
+      }
     },
 
     ShowInfo(event, id) {
